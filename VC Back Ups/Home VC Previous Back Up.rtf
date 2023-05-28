@@ -1,0 +1,2326 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;\f2\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red108\green121\blue134;\red31\green31\blue36;\red255\green255\blue255;
+\red252\green95\blue163;\red93\green216\blue255;\red208\green168\blue255;\red158\green241\blue221;\red65\green161\blue192;
+\red161\green103\blue230;\red161\green103\blue230;\red252\green106\blue93;\red208\green191\blue105;\red103\green183\blue164;
+\red103\green183\blue164;\red208\green168\blue255;\red158\green241\blue221;\red108\green121\blue134;}
+{\*\expandedcolortbl;;\csgenericrgb\c42394\c47462\c52518;\csgenericrgb\c12054\c12284\c14131;\csgenericrgb\c100000\c100000\c100000\c85000;
+\csgenericrgb\c98839\c37355\c63833;\csgenericrgb\c36295\c84643\c99897;\csgenericrgb\c81569\c65882\c100000;\csgenericrgb\c61961\c94510\c86667;\csgenericrgb\c25490\c63137\c75294;
+\csgenericrgb\c63232\c40219\c90115;\csgenericrgb\c63137\c40392\c90196;\csgenericrgb\c98912\c41558\c36568;\csgenericrgb\c81498\c74939\c41233;\csgenericrgb\c40538\c71705\c64209;
+\csgenericrgb\c40392\c71765\c64314;\csgenericrgb\c81681\c65692\c99927;\csgenericrgb\c62145\c94386\c86819;\csgenericrgb\c42394\c47462\c52518\c45000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww33400\viewh17680\viewkind0
+\deftab741
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f0\fs30 \cf2 \cb3 //\cf4 \
+\cf2 //  HomeVC.swift\cf4 \
+\cf2 //  DemoProjectApp\cf4 \
+\cf2 //\cf4 \
+\cf2 //  Created by nabushan-pt5611 on 21/09/22.\cf4 \
+\cf2 //\cf4 \
+\
+
+\f1\b \cf5 import
+\f0\b0 \cf4  UIKit\
+
+\f1\b \cf5 import
+\f0\b0 \cf4  UserNotifications\
+\
+
+\f1\b \cf5 class
+\f0\b0 \cf4  \cf6 HomeVC\cf4 : \cf7 UIViewController\cf4 , \cf8 HomeVCDelegate\cf4  \{\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 scrollView\cf4 : \cf7 UIScrollView\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  scrollView = \cf7 UIScrollView\cf4 ()\
+        \
+        scrollView.\cf10 isScrollEnabled\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        scrollView.\cf10 contentInsetAdjustmentBehavior\cf4  = .\cf10 always\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  scrollView\
+    \}()\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 nameView\cf4 : \cf7 UIView\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 customisedCollectionView\cf4 : \cf7 UIView\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 reminderView\cf4 : \cf7 UIView\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 medicalArticleView\cf4 : \cf7 UIView\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 labTestView\cf4 : \cf7 UIView\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 greetingLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    \
+\cf2 //    Use the below one near reminder.\cf4 \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 addMedicineButton\cf4 : \cf8 ResizedButton\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  button = \cf8 ResizedButton\cf4 ()\
+        \
+        button.\cf11 setImage\cf4 (\cf7 UIImage\cf4 (\cf11 systemName\cf4 : \cf12 "plus"\cf4 ), \cf11 for\cf4 : .\cf10 normal\cf4 )\
+        button.\cf10 clipsToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        button.\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        button.\cf10 titleLabel\cf4 ?.\cf10 lineBreakMode\cf4  = .\cf10 byWordWrapping\cf4 \
+\cf2 //        button.titleLabel?.textColor = .black\cf4 \
+\cf2 //        button.titleLabel?.textColor = .label\cf4 \
+        button.\cf10 titleLabel\cf4 ?.\cf10 font\cf4  = .\cf11 systemFont\cf4 (\cf11 ofSize\cf4 : \cf13 20\cf4 , \cf11 weight\cf4 : .\cf10 bold\cf4 )\
+        button.\cf10 titleLabel\cf4 ?.\cf10 textAlignment\cf4  = .\cf10 center\cf4 \
+\cf2 //        button.tintColor = .systemGreen\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  button\
+    \}()\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 refreshMedicineButton\cf4 : \cf8 ResizedButton\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  button = \cf8 ResizedButton\cf4 ()\
+        \
+        button.\cf11 setImage\cf4 (\cf7 UIImage\cf4 (\cf11 systemName\cf4 : \cf12 "arrow.clockwise.circle"\cf4 ), \cf11 for\cf4 : .\cf10 normal\cf4 )\
+        button.\cf10 clipsToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        button.\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        button.\cf10 titleLabel\cf4 ?.\cf10 lineBreakMode\cf4  = .\cf10 byWordWrapping\cf4 \
+\cf2 //        button.titleLabel?.textColor = .black\cf4 \
+\cf2 //        button.titleLabel?.textColor = .label\cf4 \
+        button.\cf10 titleLabel\cf4 ?.\cf10 font\cf4  = .\cf11 systemFont\cf4 (\cf11 ofSize\cf4 : \cf13 20\cf4 , \cf11 weight\cf4 : .\cf10 bold\cf4 )\
+        button.\cf10 titleLabel\cf4 ?.\cf10 textAlignment\cf4  = .\cf10 center\cf4 \
+\cf2 //        button.tintColor = .systemGreen\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  button\
+    \}()\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 profileView\cf4 : \cf7 UIImageView\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  imageView = \cf7 UIImageView\cf4 ()\
+\
+        imageView.\cf10 contentMode\cf4  = .\cf10 scaleAspectFit\cf4 \
+        imageView.\cf10 clipsToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        imageView.\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        imageView.\cf10 isUserInteractionEnabled\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  imageView\
+    \}()\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 dayLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 nowLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    \
+\cf2 //    var currentMedNameLabel: ResizedLabel!\cf4 \
+    \
+\cf2 //    let arrowImageView: UIImageView = \{\cf4 \
+\cf2 //        let imageView = UIImageView()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        imageView.image = UIImage(systemName: "arrow.left")\cf4 \
+\cf2 //        imageView.tintColor = .white\cf4 \
+\cf2 //        imageView.clipsToBounds = true\cf4 \
+\cf2 //        imageView.layer.masksToBounds = true\cf4 \
+\cf2 //        imageView.contentMode = .scaleAspectFit\cf4 \
+\cf2 //\cf4 \
+\cf2 //        return imageView\cf4 \
+\cf2 //    \}()\cf4 \
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 zeroReminderLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 labTestRightArrow\cf4 : \cf7 UIImageView\cf4 !\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 reminderLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 reminderTableView\cf4 : \cf7 UITableView\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  table = \cf7 UITableView\cf4 (\cf11 frame\cf4 : .\cf10 zero\cf4 , \cf11 style\cf4 : .\cf10 insetGrouped\cf4 )\
+\cf2 //        let table = UITableView()\cf4 \
+        \
+        table.\cf11 register\cf4 (\cf8 HomeViewTableViewCell\cf4 .
+\f1\b \cf5 self
+\f0\b0 \cf4 ,\
+                       \cf11 forCellReuseIdentifier\cf4 : \cf8 HomeViewTableViewCell\cf4 .\cf14 identifier\cf4 )\
+        table.\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = \cf13 10\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  table\
+    \}()\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 customCollectionView\cf4 : \cf7 UICollectionView\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  collectionView = \cf7 UICollectionView\cf4 (\cf11 frame\cf4 : .\cf10 zero\cf4 , \cf11 collectionViewLayout\cf4 : \cf8 CollectionViewLayoutProvider\cf4 ().\cf15 getCollectionViewCustomisedLayout\cf4 ())\
+        \
+\cf2 //        Register collection view cell here.\cf4 \
+        collectionView.\cf11 register\cf4 (\cf8 CustomisedCollectionViewCell\cf4 .
+\f1\b \cf5 self
+\f0\b0 \cf4 , \cf11 forCellWithReuseIdentifier\cf4 : \cf8 CustomisedCollectionViewCell\cf4 .\cf14 identifier\cf4 )\
+        \
+        collectionView.\cf11 register\cf4 (\cf8 SectionHeaderCollectionReusableView\cf4 .
+\f1\b \cf5 self
+\f0\b0 \cf4 , \cf11 forSupplementaryViewOfKind\cf4 : \cf12 "header"\cf4 , \cf11 withReuseIdentifier\cf4 : \cf8 SectionHeaderCollectionReusableView\cf4 .\cf14 identifier\cf4 )\
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  collectionView\
+    \}()\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 imagePickerView\cf4  = \cf7 UIImagePickerController\cf4 ()\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 consultationBookingLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 labTestBookingLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    \
+    
+\f1\b \cf5 let
+\f0\b0 \cf4  \cf9 themeColor\cf4 : \cf7 UIColor\cf4  = \cf7 UIColor\cf4 (\cf11 red\cf4 : \cf13 50\cf4 /\cf13 255\cf4 , \cf11 green\cf4 : \cf13 130\cf4 /\cf13 255\cf4 , \cf11 blue\cf4 : \cf13 255\cf4 /\cf13 255\cf4 , \cf11 alpha\cf4 : \cf13 1\cf4 )\
+    \
+    
+\f1\b \cf5 let
+\f0\b0 \cf4  \cf9 colors\cf4 : [\cf7 UIColor\cf4 ] = [\
+        .\cf10 systemBlue\cf4 ,\
+        \cf7 UIColor\cf4 (\cf11 red\cf4 : \cf13 5\cf4 /\cf13 255\cf4 , \cf11 green\cf4 : \cf13 196\cf4 /\cf13 255\cf4 , \cf11 blue\cf4 : \cf13 229\cf4 /\cf13 255\cf4 , \cf11 alpha\cf4 : \cf13 1\cf4 ),\
+        \cf7 UIColor\cf4 (\cf11 red\cf4 : \cf13 194\cf4 /\cf13 255\cf4 , \cf11 green\cf4 : \cf13 220\cf4 /\cf13 255\cf4 , \cf11 blue\cf4 : \cf13 129\cf4 /\cf13 255\cf4 , \cf11 alpha\cf4 : \cf13 1\cf4 ),\
+        \cf7 UIColor\cf4 (\cf11 red\cf4 : \cf13 150\cf4 /\cf13 255\cf4 , \cf11 green\cf4 : \cf13 155\cf4 /\cf13 255\cf4 , \cf11 blue\cf4 : \cf13 167\cf4 /\cf13 255\cf4 , \cf11 alpha\cf4 : \cf13 1\cf4 ),\
+    ]\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 medicalArticleCollectionView\cf4 : \cf7 UICollectionView\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  collectionView = \cf7 UICollectionView\cf4 (\cf11 frame\cf4 : .\cf10 zero\cf4 , \cf11 collectionViewLayout\cf4 : \cf8 CollectionViewLayoutProvider\cf4 ().\cf15 getArticleCollectionViewLayout\cf4 ())\
+        \
+        collectionView.\cf11 register\cf4 (\cf8 MedicalArticleCollectionViewCell\cf4 .
+\f1\b \cf5 self
+\f0\b0 \cf4 , \cf11 forCellWithReuseIdentifier\cf4 : \cf8 MedicalArticleCollectionViewCell\cf4 .\cf14 identifier\cf4 )\
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  collectionView\
+    \}()\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 formatter\cf4 : \cf7 DateFormatter\cf4  = \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  formatter = \cf7 DateFormatter\cf4 ()\
+        formatter.\cf11 dateFormat\cf4  = \cf12 "EEEE, d MMMM"\cf4 \
+        formatter.\cf10 timeZone\cf4  = \cf16 TimeZone\cf4 .\cf10 current\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  formatter\
+    \}()\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 articleView\cf4 : \cf7 UIView\cf4 !\
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 articleLabel\cf4 : \cf8 ResizedLabel\cf4 !\
+    \
+    
+\f1\b \cf5 lazy
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 homeVCHelper\cf4  = \cf8 HomeVCHelper\cf4 ()\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf9 previousltSelectedConstraintsToDeavtivate\cf4 : [\cf7 NSLayoutConstraint\cf4 ] = []\
+    \
+    
+\f1\b \cf5 override
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 viewDidLoad\cf4 () \{\
+        
+\f1\b \cf5 super
+\f0\b0 \cf4 .\cf11 viewDidLoad\cf4 ()\
+\
+        \cf10 view\cf4 .\cf10 backgroundColor\cf4  = \cf17 Theme\cf4 .\cf14 lightMode\cf4 .\cf14 backGroundColorFor\cf4 \
+\cf2 //        view.backgroundColor = .systemBackground\cf4 \
+        
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 title\cf4  = \cf12 "Home"\cf4 \
+        \
+        \cf14 nameView\cf4  = \cf15 getView\cf4 ()\
+        \cf14 customisedCollectionView\cf4  = \cf15 getView\cf4 ()\
+        \cf14 reminderView\cf4  = \cf15 getView\cf4 ()\
+        \cf14 medicalArticleView\cf4  = \cf15 getView\cf4 ()\
+        \cf14 labTestView\cf4  = \cf15 getView\cf4 ()\
+        \cf14 articleView\cf4  = \cf15 getView\cf4 ()\
+        \
+        \cf14 greetingLabel\cf4  = \cf15 getLabel\cf4 ()\
+        \cf14 dayLabel\cf4  = \cf15 getLabel\cf4 ()\
+        \cf14 nowLabel\cf4  = \cf15 getLabel\cf4 ()\
+\cf2 //        currentMedNameLabel = getLabel()\cf4 \
+        \cf14 reminderLabel\cf4  = \cf15 getLabel\cf4 ()\
+        \cf14 consultationBookingLabel\cf4  = \cf15 getLabel\cf4 ()\
+        \cf14 labTestBookingLabel\cf4  = \cf15 getLabel\cf4 ()\
+        \cf14 zeroReminderLabel\cf4  = \cf15 getLabel\cf4 ()\
+        \cf14 articleLabel\cf4  = \cf15 getLabel\cf4 ()\
+        \
+        \cf14 labTestRightArrow\cf4  = \cf15 getChevronRightImageView\cf4 ()\
+                \
+        \cf10 view\cf4 .\cf11 addSubview\cf4 (\cf14 scrollView\cf4 )\
+        \
+        \cf14 scrollView\cf4 .\cf11 addSubview\cf4 (\cf14 nameView\cf4 )\
+        \cf14 nameView\cf4 .\cf11 addSubview\cf4 (\cf14 greetingLabel\cf4 )\
+        \cf14 nameView\cf4 .\cf11 addSubview\cf4 (\cf14 profileView\cf4 )\
+        \cf14 nameView\cf4 .\cf11 addSubview\cf4 (\cf14 dayLabel\cf4 )\
+        \
+        \cf14 scrollView\cf4 .\cf11 addSubview\cf4 (\cf14 customisedCollectionView\cf4 )\
+        \cf14 customisedCollectionView\cf4 .\cf11 addSubview\cf4 (\cf14 customCollectionView\cf4 )\
+\cf2 //        subview the customised collection view components here.\cf4 \
+    \
+        \cf14 scrollView\cf4 .\cf11 addSubview\cf4 (\cf14 reminderView\cf4 )\
+\cf2 //        reminderView.addSubview(reminderLabel)\cf4 \
+        \cf14 reminderView\cf4 .\cf11 addSubview\cf4 (\cf14 zeroReminderLabel\cf4 )\
+        \cf14 reminderView\cf4 .\cf11 addSubview\cf4 (\cf14 reminderTableView\cf4 )\
+        \
+        \cf14 scrollView\cf4 .\cf11 addSubview\cf4 (\cf14 articleView\cf4 )\
+        \cf14 articleView\cf4 .\cf11 addSubview\cf4 (\cf14 articleLabel\cf4 )\
+        \
+        \cf14 scrollView\cf4 .\cf11 addSubview\cf4 (\cf14 medicalArticleView\cf4 )\
+        \cf14 medicalArticleView\cf4 .\cf11 addSubview\cf4 (\cf14 medicalArticleCollectionView\cf4 )\
+        \
+        \cf14 scrollView\cf4 .\cf11 addSubview\cf4 (\cf14 labTestView\cf4 )\
+        \cf14 labTestView\cf4 .\cf11 addSubview\cf4 (\cf14 labTestRightArrow\cf4 )\
+        \cf14 labTestView\cf4 .\cf11 addSubview\cf4 (\cf14 labTestBookingLabel\cf4 )\
+        \
+        \
+        \cf15 loadScrollView\cf4 ()\
+        \cf15 loadComponents\cf4 ()\
+    \}\
+    \
+    
+\f1\b \cf5 override
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 traitCollectionDidChange\cf4 (\cf9 _\cf4  previousTraitCollection: \cf7 UITraitCollection\cf4 ?) \{\
+        
+\f1\b \cf5 super
+\f0\b0 \cf4 .\cf11 traitCollectionDidChange\cf4 (previousTraitCollection)\
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 deactivate\cf4 (\cf14 previousltSelectedConstraintsToDeavtivate\cf4 )\
+        \cf14 medicalArticleCollectionView\cf4 .\cf10 collectionViewLayout\cf4  = \cf8 CollectionViewLayoutProvider\cf4 ().\cf15 getArticleCollectionViewLayout\cf4 ()\
+        \cf15 loadComponents\cf4 ()\
+        \cf14 medicalArticleCollectionView\cf4 .\cf11 reloadData\cf4 ()\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadComponents\cf4 () \{\
+        \cf15 configureImagePicker\cf4 ()\
+        \cf15 configureHomeVCDelegate\cf4 ()\
+\
+        \cf15 loadNameView\cf4 ()\
+        \cf15 loadProfileView\cf4 ()\
+        \cf15 loadDayLabel\cf4 ()\
+        \cf15 loadGreetingLabel\cf4 ()\
+\
+        \cf15 loadCustomisedCollectionView\cf4 ()\
+        \cf15 configureCollectionView\cf4 ()\
+        \cf15 loadCollectionView\cf4 ()\
+\
+        \cf15 loadReminderView\cf4 ()\
+\cf2 //        loadReminderLabel()\cf4 \
+        \cf15 loadZeroReminderLabel\cf4 ()\
+        \cf15 configureTableView\cf4 ()\
+        \cf15 loadReminderTableView\cf4 ()\
+\
+        \cf15 loadArticleView\cf4 ()\
+        \cf15 loadArticleLabel\cf4 ()\
+\
+        \cf15 loadMedicalArticleView\cf4 ()\
+        \cf15 loadMedicalArticleCollectionView\cf4 ()\
+\
+        \cf15 loadLabTestView\cf4 ()\
+        \cf15 loadLabTestBookingLabel\cf4 ()\
+        \cf15 loadLabTestChevronRightView\cf4 ()\
+    \}\
+    \
+\cf2 //    override func viewDidLayoutSubviews() \{\cf4 \
+\cf2 //        super.viewDidLayoutSubviews()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        loadScrollView()\cf4 \
+\cf2 //        configureImagePicker()\cf4 \
+\cf2 //        configureHomeVCDelegate()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        loadNameView()\cf4 \
+\cf2 //        loadProfileView()\cf4 \
+\cf2 //        loadDayLabel()\cf4 \
+\cf2 //        loadGreetingLabel()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        loadCustomisedCollectionView()\cf4 \
+\cf2 //        configureCollectionView()\cf4 \
+\cf2 //        loadCollectionView()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        loadReminderView()\cf4 \
+\cf18 ///
+\f2 \cf2 /        loadReminderLabel()
+\f0 \cf4 \
+\cf2 //        loadZeroReminderLabel()\cf4 \
+\cf2 //        configureTableView()\cf4 \
+\cf2 //        loadReminderTableView()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        loadArticleView()\cf4 \
+\cf2 //        loadArticleLabel()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        loadMedicalArticleView()\cf4 \
+\cf2 //        loadMedicalArticleCollectionView()\cf4 \
+\cf2 //\cf4 \
+\cf2 //        loadLabTestView()\cf4 \
+\cf2 //        loadLabTestBookingLabel()\cf4 \
+\cf2 //        loadLabTestChevronRightView()\cf4 \
+\cf2 //    \}\cf4 \
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 getView\cf4 () -> \cf7 UIView\cf4  \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  view: \cf7 UIView\cf4  = \{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  view = \cf7 UIView\cf4 ()\
+            \
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  view\
+        \}()\
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  view\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 getLabel\cf4 () -> \cf8 ResizedLabel\cf4  \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  label: \cf8 ResizedLabel\cf4  = \{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  label = \cf8 ResizedLabel\cf4 ()\
+            \
+            label.\cf10 textColor\cf4  = .\cf10 label\cf4 \
+    \cf2 //        label.backgroundColor = .white\cf4 \
+            label.\cf10 numberOfLines\cf4  = \cf13 1\cf4 \
+            label.\cf10 contentMode\cf4  = .\cf10 left\cf4 \
+            label.\cf10 textAlignment\cf4  = .\cf10 center\cf4 \
+            label.\cf10 clipsToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+            label.\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+            label.\cf10 adjustsFontSizeToFitWidth\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+            label.\cf10 isUserInteractionEnabled\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+            \
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  label\
+        \}()\
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  label\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 configureHomeVCDelegate\cf4 () \{\
+        \cf14 homeVCHelper\cf4 .\cf14 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 configureImagePicker\cf4 () \{\
+        \cf14 imagePickerView\cf4 .\cf10 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        \cf14 imagePickerView\cf4 .\cf10 sourceType\cf4  = .\cf10 photoLibrary\cf4 \
+        \cf14 imagePickerView\cf4 .\cf10 allowsEditing\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 addTapGesture\cf4 (\cf9 toView\cf4 : \cf7 UIView\cf4 )\{\
+        
+\f1\b \cf5 var
+\f0\b0 \cf4  tapGesture: \cf7 UITapGestureRecognizer\cf4 !\
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4  (toView == \cf14 profileView\cf4 ) \{\
+            tapGesture = \cf7 UITapGestureRecognizer\cf4 (\cf7 target\cf4 : 
+\f1\b \cf5 self
+\f0\b0 \cf4 , \cf7 action\cf4 : 
+\f1\b \cf5 #selector
+\f0\b0 \cf4 (\cf15 didTapProfileImage\cf4 ))\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4  (toView == \cf14 reminderView\cf4 ) \{\
+            tapGesture = \cf7 UITapGestureRecognizer\cf4 (\cf7 target\cf4 : 
+\f1\b \cf5 self
+\f0\b0 \cf4 , \cf7 action\cf4 : 
+\f1\b \cf5 #selector
+\f0\b0 \cf4 (\cf15 didTapReminderView\cf4 ))\
+        \}\
+        \
+        toView.\cf11 addGestureRecognizer\cf4 (tapGesture)\
+    \}\
+    \
+    
+\f1\b \cf5 @objc
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 didTapProfileImage\cf4 (\cf9 _\cf4  sender: \cf7 UITapGestureRecognizer\cf4 )\{\
+        \cf11 present\cf4 (\cf14 imagePickerView\cf4 , \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+    \}\
+    \
+    
+\f1\b \cf5 @objc
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 didTapReminderView\cf4 (\cf9 _\cf4  sender: \cf7 UITapGestureRecognizer\cf4 ) \{\
+\cf2 //        present modally here.\cf4 \
+        \cf11 navigationController\cf4 ?.\cf11 pushViewController\cf4 (\cf8 RemiderListVC\cf4 (\cf15 style\cf4 : .\cf10 insetGrouped\cf4 ), \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+        
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 tabBarController\cf4 ?.\cf10 tabBar\cf4 .\cf10 isHidden\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+\cf2 //        present(RemiderListVC(), animated: true)\cf4 \
+        \cf11 print\cf4 (\cf12 "Reminder View Tapped"\cf4 )\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 getChevronRightImageView\cf4 () -> \cf7 UIImageView\cf4  \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  imageView = \cf7 UIImageView\cf4 (\cf11 image\cf4 : \cf7 UIImage\cf4 (\cf11 systemName\cf4 : \cf12 "chevron.forward"\cf4 ))\
+        \
+        imageView.\cf10 contentMode\cf4  = .\cf10 scaleAspectFit\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  imageView\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadScrollView\cf4 () \{\
+        \cf14 scrollView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 scrollView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 safeAreaLayoutGuide\cf4 .\cf10 topAnchor\cf4 ),\
+            \cf14 scrollView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 safeAreaLayoutGuide\cf4 .\cf10 leadingAnchor\cf4 ),\
+            \cf14 scrollView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 safeAreaLayoutGuide\cf4 .\cf10 trailingAnchor\cf4 ),\
+            \cf14 scrollView\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 safeAreaLayoutGuide\cf4 .\cf10 bottomAnchor\cf4 ),\
+        ])\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadGreetingLabel\cf4 () \{\
+        \cf14 greetingLabel\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 greetingLabel\cf4 .\cf10 text\cf4  = \cf12 "Hi, \cf4 \\(\cf7 UserDefaults\cf4 .\cf10 standard\cf4 .\cf11 string\cf4 (\cf11 forKey\cf4 : \cf12 "User - Name"\cf4 ) ?? \cf12 ""\cf4 )\cf12 "\cf4 \
+        \cf14 greetingLabel\cf4 .\cf10 textAlignment\cf4  = .\cf10 left\cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+\cf2 //            For iPad.\cf4 \
+            \cf11 print\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 )\
+            \cf14 greetingLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 25\cf4 )\
+            \
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 greetingLabel\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 20\cf4 ),\
+                \cf14 greetingLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 greetingLabel\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 profileView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 10\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+\cf2 //        else if(view.frame.width < 350)\{\cf4 \
+\cf2 //            greetingLabel.font = UIFont(name: "Helvetica", size: 20)\cf4 \
+\cf2 //            NSLayoutConstraint.activate([\cf4 \
+\cf2 //                greetingLabel.topAnchor.constraint(equalTo: nameView.topAnchor,constant: 10),\cf4 \
+\cf2 //                greetingLabel.leadingAnchor.constraint(equalTo: nameView.leadingAnchor,constant: 15),\cf4 \
+\cf2 //                greetingLabel.trailingAnchor.constraint(equalTo: profileView.leadingAnchor,constant: -5)\cf4 \
+\cf2 //            ])\cf4 \
+\cf2 //        \}\cf4 \
+\cf2 //        else if(view.frame.width < 400)\{\cf4 \
+\cf2 //            greetingLabel.font = UIFont(name: "Helvetica", size: 25)\cf4 \
+\cf2 //            NSLayoutConstraint.activate([\cf4 \
+\cf2 //                greetingLabel.topAnchor.constraint(equalTo: nameView.topAnchor,constant: 10),\cf4 \
+\cf2 //                greetingLabel.leadingAnchor.constraint(equalTo: nameView.leadingAnchor,constant: 15),\cf4 \
+\cf2 //                greetingLabel.trailingAnchor.constraint(equalTo: profileView.leadingAnchor,constant: -5)\cf4 \
+\cf2 //            ])\cf4 \
+\cf2 //        \}\cf4 \
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            \cf14 greetingLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 25\cf4 )\
+            \
+            \cf14 greetingLabel\cf4 .\cf11 setContentHuggingPriority\cf4 (.\cf10 defaultHigh\cf4 , \cf11 for\cf4 : .\cf10 vertical\cf4 )\
+            \cf14 greetingLabel\cf4 .\cf11 setContentCompressionResistancePriority\cf4 (.\cf10 defaultHigh\cf4 , \cf11 for\cf4 : .\cf10 vertical\cf4 )\
+            \
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 greetingLabel\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 greetingLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 ),\
+                \cf14 greetingLabel\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 profileView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 5\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadProfileView\cf4 () \{\
+        \cf14 profileView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  image = \cf7 UserDefaults\cf4 .\cf10 standard\cf4 .\cf15 image\cf4 (\cf15 forKey\cf4 : \cf12 "User Selected Image"\cf4 )\{\
+            \cf14 profileView\cf4 .\cf10 image\cf4  = image\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            \cf14 profileView\cf4 .\cf10 image\cf4  = \cf7 UserDefaults\cf4 .\cf10 standard\cf4 .\cf15 image\cf4 (\cf15 forKey\cf4 : \cf12 "Default Image"\cf4 )\
+        \}\
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+\cf2 //            For iPad\cf4 \
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 profileView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4  * \cf13 0.015\cf4 ),\
+                \cf14 profileView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 15\cf4 ),\
+\cf2 //                profileView.bottomAnchor.constraint(equalTo: nameView.bottomAnchor),\cf4 \
+                \cf14 profileView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 heightAnchor\cf4 , \cf11 multiplier\cf4 : \cf13 0.1\cf4 ),\
+                \cf14 profileView\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 profileView\cf4 .\cf10 heightAnchor\cf4 , \cf11 multiplier\cf4 : \cf13 1\cf4 )\
+            ]\
+            \cf14 profileView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = (\cf13 0.1\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )/\cf13 2\cf4 \
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 400\cf4 )\{\
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                    \cf14 profileView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 5\cf4 ),\
+                    \cf14 profileView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 15\cf4 ),\
+    \cf2 //                profileView.bottomAnchor.constraint(equalTo: nameView.bottomAnchor),\cf4 \
+                    \cf14 profileView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.1\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ),\
+                    \cf14 profileView\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.1\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+                ]\
+                \
+                \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                \
+                
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                    print(constraint)\cf4 \
+                    \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+                \}\
+                \
+                \cf14 profileView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = (\cf13 0.1\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )/\cf13 2\cf4 \
+            \}\
+            
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                    \cf14 profileView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 5\cf4 ),\
+                    \cf14 profileView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 15\cf4 ),\
+    \cf2 //                profileView.bottomAnchor.constraint(equalTo: nameView.bottomAnchor),\cf4 \
+                    \cf14 profileView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.09\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ),\
+                    \cf14 profileView\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.09\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+                ]\
+                \
+                \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                \
+                
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                    print(constraint)\cf4 \
+                    \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+                \}\
+                \
+                \cf14 profileView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = (\cf13 0.09\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )/\cf13 2\cf4 \
+            \}\
+        \}\
+        \
+        \cf15 addTapGesture\cf4 (\cf15 toView\cf4 : \cf14 profileView\cf4 )\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadDayLabel\cf4 () \{\
+        \cf14 dayLabel\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 dayLabel\cf4 .\cf10 textAlignment\cf4  = .\cf10 left\cf4 \
+        \cf14 dayLabel\cf4 .\cf10 textColor\cf4  = .\cf10 label\cf4 \
+        \
+        \cf14 dayLabel\cf4 .\cf10 text\cf4  = \cf14 formatter\cf4 .\cf11 string\cf4 (\cf11 from\cf4 : \cf16 Date\cf4 .\cf10 now\cf4 )\
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+\cf2 //            For iPad\cf4 \
+            \cf14 dayLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 25\cf4 )\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 dayLabel\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 greetingLabel\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 profileView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 5\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 400\cf4 )\{\
+            \cf14 dayLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 25\cf4 )\
+            \
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 dayLabel\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 greetingLabel\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 profileView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 5\cf4 )\
+            ]\
+                                        \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                                        \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            \cf14 dayLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 25\cf4 )\
+            \
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 dayLabel\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 greetingLabel\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 10\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 ),\
+                \cf14 dayLabel\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 profileView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 5\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                                        \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadNameView\cf4 () \{\
+        \cf14 nameView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+\cf2 //        nameView.backgroundColor = .systemBlue\cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+\cf2 //            For iPad.\cf4 \
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 nameView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 scrollView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+\cf2 //                nameView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 0.07*view.frame.width),\cf4 \
+\cf2 //                nameView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -0.07*view.frame.width),\cf4 \
+                \cf14 nameView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 safeAreaLayoutGuide\cf4 .\cf10 leadingAnchor\cf4 , \cf11 constant\cf4 : \cf13 20\cf4 ),\
+                \cf14 nameView\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 widthAnchor\cf4 ,\cf11 multiplier\cf4 : \cf13 0.47\cf4 ),\
+                \cf14 nameView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.125\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ),\
+    \cf2 //            nameView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)\cf4 \
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 nameView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 scrollView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 nameView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 nameView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 10\cf4 ),\
+                \cf14 nameView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.1\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ),\
+    \cf2 //            nameView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)\cf4 \
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+        \
+\cf2 //        print(scrollView.frame)\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadCustomisedCollectionView\cf4 () \{\
+        \cf14 customisedCollectionView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 customisedCollectionView\cf4 .\cf10 backgroundColor\cf4  = .\cf10 systemRed\cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+            \cf11 print\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  * \cf13 0.7\cf4 )\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 customisedCollectionView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 5\cf4 ),\
+                \cf14 customisedCollectionView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 ),\
+\cf2 //                customisedCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -0.07*view.frame.width),\cf4 \
+                \cf14 customisedCollectionView\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 widthAnchor\cf4 ),\
+                \cf14 customisedCollectionView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 heightAnchor\cf4 , \cf11 multiplier\cf4 : \cf13 0.75\cf4 ),\
+\cf2 //                customisedCollectionView.heightAnchor.constraint(equalToConstant: 0.7*view.frame.height)\cf4 \
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 800\cf4  && \cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4  > \cf13 800\cf4 )\{\
+    \cf2 //            for Box sizing for i11 and more.\cf4 \
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                    \cf14 customisedCollectionView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 5\cf4 ),\
+                    \cf14 customisedCollectionView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 ),\
+                    \cf14 customisedCollectionView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 15\cf4 ),\
+                    \cf14 customisedCollectionView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.6\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+                ]\
+                \
+                \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                \
+                
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                    print(constraint)\cf4 \
+                    \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+                \}\
+            \}\
+            
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                    \cf14 customisedCollectionView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 5\cf4 ),\
+                    \cf14 customisedCollectionView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 ),\
+                    \cf14 customisedCollectionView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 15\cf4 ),\
+                    \cf14 customisedCollectionView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.7\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+                ]\
+                \
+                \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                \
+                
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                    print(constraint)\cf4 \
+                    \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+                \}\
+            \}\
+        \}\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadCollectionView\cf4 () \{\
+        \cf14 customCollectionView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 customCollectionView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 topAnchor\cf4 ),\
+            \cf14 customCollectionView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 leadingAnchor\cf4 ),\
+            \cf14 customCollectionView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 trailingAnchor\cf4 ),\
+            \cf14 customCollectionView\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 bottomAnchor\cf4 ),\
+        ])\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadZeroReminderLabel\cf4 () \{\
+        \cf14 zeroReminderLabel\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \cf14 zeroReminderLabel\cf4 .\cf10 text\cf4  = \cf12 "No more reminders set."\cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf14 homeVCHelper\cf4 .\cf14 reminderMedicines\cf4 .\cf10 count\cf4  != \cf13 0\cf4 )\{\
+            \cf14 zeroReminderLabel\cf4 .\cf10 alpha\cf4  = \cf13 0\cf4 \
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            \cf14 zeroReminderLabel\cf4 .\cf10 alpha\cf4  = \cf13 1\cf4 \
+        \}\
+        \
+        \cf14 zeroReminderLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 16\cf4 )\
+        \cf14 zeroReminderLabel\cf4 .\cf10 textColor\cf4  = .\cf10 label\cf4 \
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 zeroReminderLabel\cf4 .\cf10 centerXAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 centerXAnchor\cf4 ),\
+            \cf14 zeroReminderLabel\cf4 .\cf10 centerYAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 centerYAnchor\cf4 )\
+        ])\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 configureTableView\cf4 () \{\
+        \cf14 reminderTableView\cf4 .\cf10 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        \cf14 reminderTableView\cf4 .\cf10 dataSource\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        \cf14 reminderTableView\cf4 .\cf10 separatorInset\cf4  = \cf16 UIEdgeInsets\cf4 (\cf11 top\cf4 : \cf13 0\cf4 ,\
+                                                        \cf11 left\cf4 : \cf13 5\cf4 ,\
+                                                        \cf11 bottom\cf4 : \cf13 0\cf4 ,\
+                                                        \cf11 right\cf4 : \cf13 5\cf4 )\
+        \cf14 reminderTableView\cf4 .\cf10 backgroundColor\cf4  = \cf7 UIColor\cf4 .\cf10 clear\cf4 \
+        \cf14 reminderTableView\cf4 .\cf10 separatorStyle\cf4  = .\cf10 none\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 configureCollectionView\cf4 () \{\
+        \cf14 customCollectionView\cf4 .\cf10 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        \cf14 customCollectionView\cf4 .\cf10 dataSource\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        \cf14 medicalArticleCollectionView\cf4 .\cf10 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        \cf14 medicalArticleCollectionView\cf4 .\cf10 dataSource\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadReminderTableView\cf4 () \{\
+        \cf14 reminderTableView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 reminderTableView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 topAnchor\cf4 ),\
+            \cf14 reminderTableView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 leadingAnchor\cf4 ),\
+            \cf14 reminderTableView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 trailingAnchor\cf4 ),\
+            \cf14 reminderTableView\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 bottomAnchor\cf4 ),\
+        ])\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadReminderView\cf4 () \{\
+        \cf14 reminderView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+\cf2 //        reminderView.backgroundColor = .systemIndigo\cf4 \
+        
+\f1\b \cf5 var
+\f0\b0 \cf4  shadowWidth: \cf16 CGFloat\cf4 !\
+        \cf15 addTapGesture\cf4 (\cf15 toView\cf4 : \cf14 reminderView\cf4 )\
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+            \
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 reminderView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 topAnchor\cf4 ),\
+                \cf14 reminderView\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 widthAnchor\cf4 ),\
+                \cf14 reminderView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 nameView\cf4 .\cf10 trailingAnchor\cf4 , \cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 reminderView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 heightAnchor\cf4 , \cf11 multiplier\cf4 : \cf13 0.25\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+            \
+            shadowWidth = \cf16 CGFloat\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 )/\cf13 2\cf4 \
+            \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 shadowPath\cf4  = \cf7 UIBezierPath\cf4 (\cf11 roundedRect\cf4 : \cf16 CGRect\cf4 (\cf11 x\cf4 : \cf13 0\cf4 , \cf11 y\cf4 : \cf13 0\cf4 , \cf11 width\cf4 : shadowWidth, \cf11 height\cf4 : \cf13 0.25\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ), \cf11 cornerRadius\cf4 : \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4 ).\cf10 cgPath\cf4 \
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  > \cf13 800\cf4 )\{\
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                    \cf14 reminderView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0\cf4 ),\
+                    \cf14 reminderView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0.07\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ),\
+                    \cf14 reminderView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 0.07\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ),\
+        \cf2 //            reminderView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),\cf4 \
+                    \cf14 reminderView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.3\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+                ]\
+                \
+                \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                \
+                
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                    print(constraint)\cf4 \
+                    \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+                \}\
+                \
+                shadowWidth = \cf16 CGFloat\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  - \cf13 2\cf4 *(\cf13 0.07\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ))\
+                \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 shadowPath\cf4  = \cf7 UIBezierPath\cf4 (\cf11 roundedRect\cf4 : \cf16 CGRect\cf4 (\cf11 x\cf4 : \cf13 0\cf4 , \cf11 y\cf4 : \cf13 0\cf4 , \cf11 width\cf4 : shadowWidth, \cf11 height\cf4 : \cf13 0.3\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ), \cf11 cornerRadius\cf4 : \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4 ).\cf10 cgPath\cf4 \
+            \}\
+            
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                    \cf14 reminderView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0\cf4 ),\
+    \cf2 //                reminderView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),\cf4 \
+    \cf2 //                reminderView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),\cf4 \
+                    \cf14 reminderView\cf4 .\cf10 centerXAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 centerXAnchor\cf4 ),\
+                    \cf14 reminderView\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  - \cf13 40\cf4 ),\
+                    \cf14 reminderView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.3\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+                ]\
+                \
+                \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                \
+                
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                    print(constraint)\cf4 \
+                    \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+                \}\
+                    \
+                shadowWidth = \cf16 CGFloat\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  - \cf13 40\cf4 )\
+                \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 shadowPath\cf4  = \cf7 UIBezierPath\cf4 (\cf11 roundedRect\cf4 : \cf16 CGRect\cf4 (\cf11 x\cf4 : \cf13 0\cf4 , \cf11 y\cf4 : \cf13 0\cf4 , \cf11 width\cf4 : shadowWidth, \cf11 height\cf4 : \cf13 0.3\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ), \cf11 cornerRadius\cf4 : \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4 ).\cf10 cgPath\cf4 \
+            \}\
+        \}\
+        \
+        \cf14 reminderView\cf4 .\cf10 backgroundColor\cf4  = \cf10 view\cf4 .\cf10 backgroundColor\cf4 \
+        \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = \cf13 10\cf4 \
+        \
+        \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 shadowOffset\cf4  = \cf16 CGSize\cf4 (\cf11 width\cf4 : \cf13 0\cf4 , \cf11 height\cf4 : \cf13 0\cf4 )\
+        \
+        \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 shadowColor\cf4  = \cf7 UIColor\cf4 .\cf10 label\cf4 .\cf10 cgColor\cf4 \
+        \
+        \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 shadowRadius\cf4  = \cf13 10\cf4 \
+        \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 shadowOpacity\cf4  = \cf13 0.2\cf4 \
+        \cf14 reminderView\cf4 .\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadArticleView\cf4 () \{\
+        \cf14 articleView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 articleView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 articleView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 leadingAnchor\cf4 ),\
+                \cf14 articleView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 trailingAnchor\cf4 ),\
+                \cf14 articleView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.05\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+\cf2 //            if(view.frame.width > 800)\{\cf4 \
+\cf2 //                let constraints = [\cf4 \
+\cf2 //                    articleView.topAnchor.constraint(equalTo: reminderView.bottomAnchor,constant: 10),\cf4 \
+\cf2 //                    articleView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 0.07*view.frame.width),\cf4 \
+\cf2 //                    articleView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -0.07*view.frame.width),\cf4 \
+\cf2 //                    articleView.heightAnchor.constraint(equalToConstant: 0.05*view.frame.height)\cf4 \
+\cf2 //                ]\cf4 \
+\cf2 //\cf4 \
+\cf2 //                NSLayoutConstraint.activate(constraints)\cf4 \
+\cf2 //\cf4 \
+\cf2 //                for constraint in constraints \{\cf4 \
+\cf2 //                    previousltSelectedConstraintsToDeavtivate.append(constraint)\cf4 \
+\cf2 //                \}\cf4 \
+\cf2 //            \}\cf4 \
+\cf2 //            else\{\cf4 \
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                    \cf14 articleView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                    \cf14 articleView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 20\cf4 ),\
+                    \cf14 articleView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 20\cf4 ),\
+                    \cf14 articleView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.05\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 )\
+                ]\
+                \
+                \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+                \
+                
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                    print(constraint)\cf4 \
+                    \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+                \}\
+\cf2 //            \}\cf4 \
+        \}\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadArticleLabel\cf4 () \{\
+        \cf14 articleLabel\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 articleLabel\cf4 .\cf10 text\cf4  = \cf12 "Today's Health News"\cf4 \
+        \cf14 articleLabel\cf4 .\cf10 textAlignment\cf4  = .\cf10 left\cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 350\cf4 )\{\
+            \cf14 articleLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 16\cf4 )\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 400\cf4 )\{\
+            \cf14 articleLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 20\cf4 )\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            \cf14 articleLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 25\cf4 )\
+        \}\
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 articleLabel\cf4 .\cf10 centerYAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 articleView\cf4 .\cf10 centerYAnchor\cf4 ),\
+            \cf14 articleLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 articleView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 15\cf4 )\
+        ])\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadMedicalArticleView\cf4 () \{\
+        \cf14 medicalArticleView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 medicalArticleView\cf4 .\cf10 backgroundColor\cf4  = .\cf10 clear\cf4 \
+        \
+        
+\f1\b \cf5 var
+\f0\b0 \cf4  shadowWidth: \cf16 CGFloat\cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 medicalArticleView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 articleView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 medicalArticleView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 articleView\cf4 .\cf10 leadingAnchor\cf4 ),\
+                \cf14 medicalArticleView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 articleView\cf4 .\cf10 trailingAnchor\cf4 ),\
+\cf2 //                medicalArticleView.heightAnchor.constraint(equalToConstant: 0.3*view.frame.height)\cf4 \
+                \cf14 medicalArticleView\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customisedCollectionView\cf4 .\cf10 bottomAnchor\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+            \
+            shadowWidth = \cf16 CGFloat\cf4 (\cf14 articleView\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 )\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 medicalArticleView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 articleView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 medicalArticleView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 20\cf4 ),\
+                \cf14 medicalArticleView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 20\cf4 ),\
+                \cf14 medicalArticleView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 heightAnchor\cf4 , \cf11 multiplier\cf4 : \cf13 0.3\cf4 ),\
+    \cf2 //            consultationView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)\cf4 \
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+            \
+            shadowWidth = \cf16 CGFloat\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  - \cf13 40\cf4 )\
+        \}\
+        \
+\cf2 //        medicalArticleView.backgroundColor = view.backgroundColor\cf4 \
+\cf2 //        medicalArticleView.layer.cornerRadius = 10\cf4 \
+        \
+        \cf14 medicalArticleView\cf4 .\cf10 layer\cf4 .\cf10 shadowOffset\cf4  = \cf16 CGSize\cf4 (\cf11 width\cf4 : \cf13 0\cf4 , \cf11 height\cf4 : \cf13 0\cf4 )\
+        \
+        \cf14 medicalArticleView\cf4 .\cf10 layer\cf4 .\cf10 shadowColor\cf4  = \cf7 UIColor\cf4 .\cf10 label\cf4 .\cf10 cgColor\cf4 \
+        \
+        \cf14 medicalArticleView\cf4 .\cf10 layer\cf4 .\cf10 shadowRadius\cf4  = \cf13 10\cf4 \
+        \cf14 medicalArticleView\cf4 .\cf10 layer\cf4 .\cf10 shadowOpacity\cf4  = \cf13 0.1\cf4 \
+        \cf14 medicalArticleView\cf4 .\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \cf14 medicalArticleView\cf4 .\cf10 layer\cf4 .\cf10 shadowPath\cf4  = \cf7 UIBezierPath\cf4 (\cf11 roundedRect\cf4 : \cf16 CGRect\cf4 (\cf11 x\cf4 : \cf13 0\cf4 , \cf11 y\cf4 : \cf13 0\cf4 , \cf11 width\cf4 : shadowWidth, \cf11 height\cf4 : \cf13 0.3\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ), \cf11 cornerRadius\cf4 : \cf14 medicalArticleView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4 ).\cf10 cgPath\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadMedicalArticleCollectionView\cf4 () \{\
+        \cf14 medicalArticleCollectionView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 medicalArticleCollectionView\cf4 .\cf10 backgroundColor\cf4  = .\cf10 clear\cf4 \
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 medicalArticleCollectionView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 medicalArticleView\cf4 .\cf10 topAnchor\cf4 ),\
+            \cf14 medicalArticleCollectionView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 medicalArticleView\cf4 .\cf10 leadingAnchor\cf4 ),\
+            \cf14 medicalArticleCollectionView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 medicalArticleView\cf4 .\cf10 trailingAnchor\cf4 ),\
+            \cf14 medicalArticleCollectionView\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 medicalArticleView\cf4 .\cf10 bottomAnchor\cf4 ),\
+        ])\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadLabTestChevronRightView\cf4 () \{\
+        \cf14 labTestRightArrow\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 labTestRightArrow\cf4 .\cf10 tintColor\cf4  = .\cf10 systemBlue\cf4 \
+        \
+\cf2 //        NSLayoutConstraint.activate([\cf4 \
+\cf2 //            labTestRightArrow.topAnchor.constraint(equalTo: labTestView.topAnchor,constant: 15),\cf4 \
+\cf2 //            labTestRightArrow.trailingAnchor.constraint(equalTo: labTestView.trailingAnchor,constant: -10),\cf4 \
+\cf2 //            labTestRightArrow.bottomAnchor.constraint(equalTo: labTestView.bottomAnchor,constant: -15),\cf4 \
+\cf2 //            labTestRightArrow.widthAnchor.constraint(equalToConstant: 0.065*view.frame.width)\cf4 \
+\cf2 //        ])\cf4 \
+        \
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+            \cf14 labTestRightArrow\cf4 .\cf10 centerYAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 labTestView\cf4 .\cf10 centerYAnchor\cf4 ),\
+            \cf14 labTestRightArrow\cf4 .\cf10 widthAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.045\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ),\
+            \cf14 labTestRightArrow\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalToConstant\cf4 : \cf13 0.1\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ),\
+            \cf14 labTestRightArrow\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 labTestView\cf4 .\cf10 trailingAnchor\cf4 , \cf11 constant\cf4 : -\cf13 20\cf4 )\
+        ]\
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+        \
+        
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //            print(constraint)\cf4 \
+            \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+        \}\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadLabTestBookingLabel\cf4 () \{\
+        \cf14 labTestBookingLabel\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 labTestBookingLabel\cf4 .\cf10 text\cf4  = \cf12 "Book Lab Test"\cf4 \
+        \cf14 labTestBookingLabel\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 20\cf4 )\
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 labTestBookingLabel\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 labTestView\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+            \cf14 labTestBookingLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 labTestView\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+            \cf14 labTestBookingLabel\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 labTestView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 10\cf4 )\
+        ])\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 loadLabTestView\cf4 () \{\
+        \cf14 labTestView\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        
+\f1\b \cf5 var
+\f0\b0 \cf4  shadowWidth: \cf16 CGFloat\cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 horizontalSizeClass\cf4  == .\cf10 regular\cf4  && \cf7 UITraitCollection\cf4 .\cf10 current\cf4 .\cf10 verticalSizeClass\cf4  == .\cf10 regular\cf4 )\{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 labTestView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 customCollectionView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 0.07\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 0.07\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 heightAnchor\cf4 , \cf11 multiplier\cf4 : \cf13 0.1\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 scrollView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 50\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+            \
+            shadowWidth = \cf16 CGFloat\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  - \cf13 2\cf4 *(\cf13 0.07\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 ))\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  constraints = [\
+                \cf14 labTestView\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 medicalArticleView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 leadingAnchor\cf4 ,\cf11 constant\cf4 : \cf13 20\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 trailingAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 20\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 heightAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf10 view\cf4 .\cf10 heightAnchor\cf4 , \cf11 multiplier\cf4 : \cf13 0.1\cf4 ),\
+                \cf14 labTestView\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 scrollView\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 30\cf4 )\
+            ]\
+            \
+            \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 (constraints)\
+            \
+            
+\f1\b \cf5 for
+\f0\b0 \cf4  constraint 
+\f1\b \cf5 in
+\f0\b0 \cf4  constraints \{\
+\cf2 //                print(constraint)\cf4 \
+                \cf14 previousltSelectedConstraintsToDeavtivate\cf4 .\cf11 append\cf4 (constraint)\
+            \}\
+            \
+            shadowWidth = \cf16 CGFloat\cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  - \cf13 40\cf4 )\
+        \}\
+        \
+        \cf14 labTestView\cf4 .\cf10 backgroundColor\cf4  = \cf10 view\cf4 .\cf10 backgroundColor\cf4 \
+        \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = \cf13 10\cf4 \
+        \
+        \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 shadowOffset\cf4  = \cf16 CGSize\cf4 (\cf11 width\cf4 : \cf13 0\cf4 , \cf11 height\cf4 : \cf13 0\cf4 )\
+        \
+        \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 shadowColor\cf4  = \cf7 UIColor\cf4 .\cf10 label\cf4 .\cf10 cgColor\cf4 \
+        \
+        \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 shadowRadius\cf4  = \cf13 8\cf4 \
+        \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 shadowOpacity\cf4  = \cf13 0.1\cf4 \
+        \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 shadowPath\cf4  = \cf7 UIBezierPath\cf4 (\cf11 roundedRect\cf4 : \cf16 CGRect\cf4 (\cf11 x\cf4 : \cf13 0\cf4 , \cf11 y\cf4 : \cf13 0\cf4 , \cf11 width\cf4 : shadowWidth, \cf11 height\cf4 : \cf13 0.1\cf4 *\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 height\cf4 ), \cf11 cornerRadius\cf4 : \cf14 labTestView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4 ).\cf10 cgPath\cf4 \
+    \}\
+    \
+\cf2 //    User Notifications.\cf4 \
+    
+\f1\b \cf5 @objc
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 didTapAddMedicinesToReminderButton\cf4 (\cf9 _\cf4  sender: \cf7 UIButton\cf4 )\{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  addMedVC = \cf8 AddMedicineVC\cf4 ()\
+        \
+        addMedVC.\cf14 delegate\cf4  = \cf14 homeVCHelper\cf4 \
+        \
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  vc = \cf7 UINavigationController\cf4 (\cf11 rootViewController\cf4 : addMedVC)\
+        vc.\cf10 modalPresentationStyle\cf4  = .\cf10 automatic\cf4 \
+        \cf11 present\cf4 (vc, \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+    \}\
+    \
+    
+\f1\b \cf5 @objc
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 didTapRefreshMedicineTableViewButton\cf4 (\cf9 _\cf4  sender: \cf7 UIButton\cf4 ) \{\
+        \cf11 print\cf4 (\cf12 "Refresh medicines tapped"\cf4 )\
+        \cf15 reloadReminderTableView\cf4 ()\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 reloadReminderTableView\cf4 () \{\
+        \cf14 homeVCHelper\cf4 .\cf15 fetchCurrentReminderMedicines\cf4 ()\
+        \cf14 reminderTableView\cf4 .\cf11 reloadData\cf4 ()\
+    \}\
+\}\
+\
+
+\f1\b \cf5 extension
+\f0\b0 \cf4  \cf6 HomeVC\cf4 : \cf7 UITableViewDelegate\cf4 , \cf7 UITableViewDataSource\cf4  \{\
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 numberOfSections\cf4 (\cf9 in\cf4  tableView: \cf7 UITableView\cf4 ) -> \cf16 Int\cf4  \{\
+        \cf13 1\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 tableView\cf4 (\cf9 _\cf4  tableView: \cf7 UITableView\cf4 , \cf9 numberOfRowsInSection\cf4  section: \cf16 Int\cf4 ) -> \cf16 Int\cf4  \{\
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf14 homeVCHelper\cf4 .\cf14 reminderMedicines\cf4 .\cf10 count\cf4  > \cf13 0\cf4 )\{\
+            \cf14 zeroReminderLabel\cf4 .\cf10 text\cf4  = \cf12 ""\cf4 \
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf14 homeVCHelper\cf4 .\cf14 reminderMedicines\cf4 .\cf10 count\cf4  == \cf13 0\cf4 )\{\
+            \cf14 zeroReminderLabel\cf4 .\cf10 text\cf4  = \cf12 "No more reminders set."\cf4 \
+        \}\
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf14 homeVCHelper\cf4 .\cf14 reminderMedicines\cf4 .\cf10 count\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 tableView\cf4 (\cf9 _\cf4  tableView: \cf7 UITableView\cf4 , \cf9 cellForRowAt\cf4  indexPath: \cf16 IndexPath\cf4 ) -> \cf7 UITableViewCell\cf4  \{\
+        
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  cell = tableView.\cf11 dequeueReusableCell\cf4 (\cf11 withIdentifier\cf4 : \cf8 HomeViewTableViewCell\cf4 .\cf14 identifier\cf4 , \cf11 for\cf4 : indexPath) 
+\f1\b \cf5 as
+\f0\b0 \cf4 ? \cf8 HomeViewTableViewCell\cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf7 UITableViewCell\cf4 ()\
+        \}\
+        \
+        cell.\cf14 reminder\cf4  = \cf14 homeVCHelper\cf4 .\cf14 reminderMedicines\cf4 [indexPath.\cf10 row\cf4 ]\
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (indexPath.\cf10 row\cf4  == \cf13 0\cf4 )\{\
+            \cf14 homeVCHelper\cf4 .\cf14 startTimeForReminderTable\cf4  = cell.\cf14 reminder\cf4 .\cf14 time\cf4 \
+        \}\
+        cell.\cf14 previousTime\cf4  = \cf14 homeVCHelper\cf4 .\cf14 startTimeForReminderTable\cf4 \
+        cell.\cf10 backgroundColor\cf4  = \cf10 view\cf4 .\cf10 backgroundColor\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  cell\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 tableView\cf4 (\cf9 _\cf4  tableView: \cf7 UITableView\cf4 , \cf9 didSelectRowAt\cf4  indexPath: \cf16 IndexPath\cf4 ) \{\
+        tableView.\cf11 deselectRow\cf4 (\cf11 at\cf4 : indexPath, \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 tableView\cf4 (\cf9 _\cf4  tableView: \cf7 UITableView\cf4 , \cf9 viewForHeaderInSection\cf4  section: \cf16 Int\cf4 ) -> \cf7 UIView\cf4 ? \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  view = \cf7 UIView\cf4 ()\
+        \
+        view.\cf11 addSubview\cf4 (\cf14 reminderLabel\cf4 )\
+        view.\cf11 addSubview\cf4 (\cf14 refreshMedicineButton\cf4 )\
+        view.\cf11 addSubview\cf4 (\cf14 addMedicineButton\cf4 )\
+        \
+        \
+\cf2 //        Button Constraints\cf4 \
+        \cf14 addMedicineButton\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \cf14 addMedicineButton\cf4 .\cf11 addTarget\cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 , \cf11 action\cf4 : 
+\f1\b \cf5 #selector
+\f0\b0 \cf4 (\cf15 didTapAddMedicinesToReminderButton\cf4 ), \cf11 for\cf4 : .\cf10 touchUpInside\cf4 )\
+        \cf14 addMedicineButton\cf4 .\cf10 tintColor\cf4  = \cf14 themeColor\cf4 \
+        \
+        \cf14 refreshMedicineButton\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \cf14 refreshMedicineButton\cf4 .\cf11 addTarget\cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 , \cf11 action\cf4 : 
+\f1\b \cf5 #selector
+\f0\b0 \cf4 (\cf15 didTapRefreshMedicineTableViewButton\cf4 ), \cf11 for\cf4 : .\cf10 touchUpInside\cf4 )\
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+\cf2 //            Add Medicine Button\cf4 \
+            \cf14 addMedicineButton\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderLabel\cf4 .\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+            \cf14 addMedicineButton\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : view.\cf10 trailingAnchor\cf4 ),\
+            \cf14 addMedicineButton\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderLabel\cf4 .\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 5\cf4 ),\
+            \
+\cf2 //            Refresh Button\cf4 \
+            \cf14 refreshMedicineButton\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 reminderLabel\cf4 .\cf10 topAnchor\cf4 , \cf11 constant\cf4 : \cf13 10\cf4 ),\
+            \cf14 refreshMedicineButton\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 addMedicineButton\cf4 .\cf10 bottomAnchor\cf4 ),\
+            \cf14 refreshMedicineButton\cf4 .\cf10 trailingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : \cf14 addMedicineButton\cf4 .\cf10 leadingAnchor\cf4 ),\
+        ])\
+        \
+\cf2 //        Label Constraints\cf4 \
+        \cf14 reminderLabel\cf4 .\cf10 translatesAutoresizingMaskIntoConstraints\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+        \cf14 reminderLabel\cf4 .\cf10 text\cf4  = \cf12 "Reminders"\cf4 \
+        \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  > \cf13 800\cf4 )\{\
+            \cf14 reminderLabel\cf4 .\cf10 font\cf4  = .\cf11 boldSystemFont\cf4 (\cf11 ofSize\cf4 : \cf13 30\cf4 )\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            \cf14 reminderLabel\cf4 .\cf10 font\cf4  = .\cf11 boldSystemFont\cf4 (\cf11 ofSize\cf4 : \cf13 25\cf4 )\
+        \}\
+        \
+        \cf7 NSLayoutConstraint\cf4 .\cf11 activate\cf4 ([\
+            \cf14 reminderLabel\cf4 .\cf10 topAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : view.\cf10 topAnchor\cf4 ,\cf11 constant\cf4 : \cf13 10\cf4 ),\
+            \cf14 reminderLabel\cf4 .\cf10 leadingAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : view.\cf10 leadingAnchor\cf4 ),\
+            \cf14 reminderLabel\cf4 .\cf10 bottomAnchor\cf4 .\cf11 constraint\cf4 (\cf11 equalTo\cf4 : view.\cf10 bottomAnchor\cf4 ,\cf11 constant\cf4 : -\cf13 5\cf4 )\
+        ])\
+        \
+        view.\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = \cf13 10\cf4 \
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  view\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 tableView\cf4 (\cf9 _\cf4  tableView: \cf7 UITableView\cf4 , \cf9 viewForFooterInSection\cf4  section: \cf16 Int\cf4 ) -> \cf7 UIView\cf4 ? \{\
+        
+\f1\b \cf5 nil
+\f0\b0 \cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 tableView\cf4 (\cf9 _\cf4  tableView: \cf7 UITableView\cf4 , \cf9 heightForHeaderInSection\cf4  section: \cf16 Int\cf4 ) -> \cf16 CGFloat\cf4  \{\
+        \cf7 UITableView\cf4 .\cf10 automaticDimension\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 tableView\cf4 (\cf9 _\cf4  tableView: \cf7 UITableView\cf4 , \cf9 heightForFooterInSection\cf4  section: \cf16 Int\cf4 ) -> \cf16 CGFloat\cf4  \{\
+        \cf13 0\cf4 \
+    \}\
+\}\
+\
+
+\f1\b \cf5 extension
+\f0\b0 \cf4  \cf6 HomeVC\cf4 : \cf7 UICollectionViewDelegate\cf4 , \cf7 UICollectionViewDataSource\cf4  \{\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 numberOfSections\cf4 (\cf9 in\cf4  collectionView: \cf7 UICollectionView\cf4 ) -> \cf16 Int\cf4  \{\
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 medicalArticleCollectionView\cf4 )\{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf13 1\cf4 \
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 customCollectionView\cf4 )\{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf13 2\cf4 \
+        \}\
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf13 0\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 collectionView\cf4 (\cf9 _\cf4  collectionView: \cf7 UICollectionView\cf4 , \cf9 numberOfItemsInSection\cf4  section: \cf16 Int\cf4 ) -> \cf16 Int\cf4  \{\
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 customCollectionView\cf4 )\{\
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (section == \cf13 0\cf4 )\{\
+                
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf14 homeVCHelper\cf4 .\cf14 medicalSolution\cf4 .\cf10 count\cf4 \
+            \}\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf14 homeVCHelper\cf4 .\cf14 specialists\cf4 .\cf10 count\cf4 \
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 medicalArticleCollectionView\cf4 )\{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf14 homeVCHelper\cf4 .\cf14 medArticleData\cf4 .\cf10 count\cf4 \
+\cf2 //            print(temp.count)\cf4 \
+\cf2 //            return temp.count\cf4 \
+        \}\
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf13 0\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 collectionView\cf4 (\cf9 _\cf4  collectionView: \cf7 UICollectionView\cf4 , \cf9 cellForItemAt\cf4  indexPath: \cf16 IndexPath\cf4 ) -> \cf7 UICollectionViewCell\cf4  \{\
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 customCollectionView\cf4 )\{\
+            
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  cell = collectionView.\cf11 dequeueReusableCell\cf4 (\cf11 withReuseIdentifier\cf4 : \cf8 CustomisedCollectionViewCell\cf4 .\cf14 identifier\cf4 , \cf11 for\cf4 : indexPath) 
+\f1\b \cf5 as
+\f0\b0 \cf4 ? \cf8 CustomisedCollectionViewCell\cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+                
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf7 UICollectionViewCell\cf4 ()\
+            \}\
+            \
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (indexPath.\cf10 section\cf4  == \cf13 0\cf4 )\{\
+                cell.\cf14 medicalSolutionContainer\cf4  = \cf14 homeVCHelper\cf4 .\cf14 medicalSolution\cf4 [indexPath.\cf10 row\cf4 ]\
+            \}\
+            
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                cell.\cf14 specialistsContainer\cf4  = \cf14 homeVCHelper\cf4 .\cf14 specialists\cf4 [indexPath.\cf10 row\cf4 ]\
+            \}\
+            \
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (indexPath.\cf10 section\cf4  == \cf13 0\cf4 )\{\
+                
+\f1\b \cf5 if
+\f0\b0 \cf4 (indexPath.\cf10 row\cf4  == \cf13 0\cf4 )\{\
+                    cell.\cf10 backgroundColor\cf4  = .\cf10 systemBlue\cf4 \
+                    cell.\cf10 tintColor\cf4  = .\cf10 white\cf4 \
+                    cell.\cf14 label\cf4 .\cf10 textColor\cf4  = .\cf10 white\cf4 \
+                \}\
+                
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                    cell.\cf10 backgroundColor\cf4  = .\cf10 secondarySystemBackground\cf4 \
+                    \
+    \cf2 //                cell.backgroundColor = .white\cf4 \
+    \cf2 //                cell.label.textColor = .black\cf4 \
+                \}\
+            \}\
+            
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  index = indexPath.\cf10 row\cf4  % \cf14 colors\cf4 .\cf10 count\cf4 \
+    \cf2 //            print(index)\cf4 \
+                cell.\cf10 backgroundColor\cf4  = \cf14 colors\cf4 [index]\
+                \
+                cell.\cf14 imageView\cf4 .\cf10 tintColor\cf4  = .\cf10 white\cf4 \
+                cell.\cf14 label\cf4 .\cf10 textColor\cf4  = .\cf10 white\cf4 \
+            \}\
+            \
+\cf2 //            cell.layer.shadowColor = UIColor.label.cgColor\cf4 \
+\cf2 //\cf4 \
+            cell.\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = \cf13 10\cf4 \
+\cf2 //            cell.layer.shadowOffset = CGSize(width: 0, height: 5)\cf4 \
+\cf2 //            cell.layer.shadowRadius = 10\cf4 \
+\cf2 //            cell.layer.shadowOpacity = 0.1\cf4 \
+\cf2 //            cell.layer.masksToBounds = false\cf4 \
+\cf2 //            cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath\cf4 \
+            \
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  > \cf13 800\cf4 )\{\
+                cell.\cf14 label\cf4 .\cf10 font\cf4  = \cf7 UIFont\cf4 (\cf11 name\cf4 : \cf12 "Helvetica"\cf4 , \cf11 size\cf4 : \cf13 25\cf4 )\
+            \}\
+            \
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  cell\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4  (collectionView == \cf14 medicalArticleCollectionView\cf4 )\{\
+            
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  cell = collectionView.\cf11 dequeueReusableCell\cf4 (\cf11 withReuseIdentifier\cf4 : \cf8 MedicalArticleCollectionViewCell\cf4 .\cf14 identifier\cf4 , \cf11 for\cf4 : indexPath) 
+\f1\b \cf5 as
+\f0\b0 \cf4 ? \cf8 MedicalArticleCollectionViewCell\cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf7 UICollectionViewCell\cf4 ()\
+            \}\
+            \
+            cell.\cf10 backgroundColor\cf4  = \cf10 view\cf4 .\cf10 backgroundColor\cf4 \
+            cell.\cf14 article\cf4  = \cf14 homeVCHelper\cf4 .\cf14 medArticleData\cf4 [indexPath.\cf10 row\cf4 ]\
+            cell.\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = \cf13 10\cf4 \
+            \
+            cell.\cf10 layer\cf4 .\cf10 shadowColor\cf4  = \cf7 UIColor\cf4 .\cf10 label\cf4 .\cf10 cgColor\cf4 \
+                    \
+            cell.\cf10 layer\cf4 .\cf10 cornerRadius\cf4  = \cf13 10\cf4 \
+            cell.\cf10 layer\cf4 .\cf10 shadowOffset\cf4  = \cf16 CGSize\cf4 (\cf11 width\cf4 : \cf13 0\cf4 , \cf11 height\cf4 : \cf13 0.0\cf4 )\
+            cell.\cf10 layer\cf4 .\cf10 shadowRadius\cf4  = \cf13 1\cf4 \
+            cell.\cf10 layer\cf4 .\cf10 shadowOpacity\cf4  = \cf13 0.1\cf4 \
+            cell.\cf10 layer\cf4 .\cf10 masksToBounds\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+            cell.\cf10 layer\cf4 .\cf10 shadowPath\cf4  = \cf7 UIBezierPath\cf4 (\cf11 roundedRect\cf4 : cell.\cf10 bounds\cf4 , \cf11 cornerRadius\cf4 : cell.\cf10 contentView\cf4 .\cf10 layer\cf4 .\cf10 cornerRadius\cf4 ).\cf10 cgPath\cf4 \
+            \
+            \cf11 print\cf4 (\cf14 homeVCHelper\cf4 .\cf14 medArticleData\cf4 [indexPath.\cf10 row\cf4 ].description)\
+            \
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  cell\
+        \}\
+        \
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf7 UICollectionViewCell\cf4 ()\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 collectionView\cf4 (\cf9 _\cf4  collectionView: \cf7 UICollectionView\cf4 , \cf9 didSelectItemAt\cf4  indexPath: \cf16 IndexPath\cf4 ) \{\
+        collectionView.\cf11 deselectItem\cf4 (\cf11 at\cf4 : indexPath, \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+\
+\cf2 //        Hiding the below tabbar\cf4 \
+\cf2 //        self.hidesBottomBarWhenPushed = true\cf4 \
+        
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 tabBarController\cf4 ?.\cf10 tabBar\cf4 .\cf10 isHidden\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        \
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 medicalArticleCollectionView\cf4 )\{\
+            
+\f1\b \cf5 let
+\f0\b0 \cf4  vc = \cf8 MedicalNewsVC\cf4 ()\
+            \
+            \cf10 modalPresentationStyle\cf4  = .\cf10 fullScreen\cf4 \
+            vc.\cf14 article\cf4  = \cf14 homeVCHelper\cf4 .\cf14 medArticleData\cf4 [indexPath.\cf10 row\cf4 ]\
+            \
+            \cf11 present\cf4 (vc, \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+        \}\
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 customCollectionView\cf4 )\{\
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (indexPath.\cf10 section\cf4  == \cf13 0\cf4 )\{\
+                
+\f1\b \cf5 var
+\f0\b0 \cf4  viewController: \cf7 UIViewController\cf4 ?\
+                
+\f1\b \cf5 switch
+\f0\b0 \cf4 (indexPath.\cf10 row\cf4 )\{\
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 0\cf4 :\
+                    viewController = \cf8 DoctorsListVC\cf4 (\cf15 selectedState\cf4 : .\cf14 all\cf4 )\
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 3\cf4 :\
+                    viewController = \cf8 EmergencyVC\cf4 ()\
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 5\cf4 :\
+                    viewController = \cf8 PharmacyListVC\cf4 ()\
+                
+\f1\b \cf5 default
+\f0\b0 \cf4 :\
+                    ()\
+                \}\
+                \
+                
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  viewController = viewController 
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+                    
+\f1\b \cf5 return
+\f0\b0 \cf4 \
+                \}\
+                \
+                \cf10 navigationController\cf4 ?.\cf11 pushViewController\cf4 (viewController, \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+            \}\
+            
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                
+\f1\b \cf5 var
+\f0\b0 \cf4  selectedState: \cf17 DoctorDesignation\cf4 ?\
+                
+\f1\b \cf5 switch
+\f0\b0 \cf4 (indexPath.\cf10 row\cf4 )\{\
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 0\cf4 :\
+                    selectedState = .\cf14 cardiologist\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 1\cf4 :\
+                    selectedState = .\cf14 nephrologist\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 2\cf4 :\
+                    selectedState = .\cf14 immunologists\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 3\cf4 :\
+                    selectedState = .\cf14 gastroenterologist\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 4\cf4 :\
+                    selectedState = .\cf14 dentist\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 5\cf4 :\
+                    selectedState = .\cf14 neurologist\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 6\cf4 :\
+                    selectedState = .\cf14 orthopaedics\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 7\cf4 :\
+                    selectedState = .\cf14 dermatologist\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 8\cf4 :\
+                    selectedState = .\cf14 trichologist\cf4 \
+                
+\f1\b \cf5 case
+\f0\b0 \cf4  \cf13 9\cf4 :\
+                    selectedState = .\cf14 gynacologist\cf4 \
+                
+\f1\b \cf5 default
+\f0\b0 \cf4 :\
+                    selectedState = .\cf14 all\cf4 \
+                \}\
+                \
+                
+\f1\b \cf5 let
+\f0\b0 \cf4  vc = \cf8 DoctorsListVC\cf4 (\cf15 selectedState\cf4 : selectedState ?? .\cf14 all\cf4 )\
+                \cf10 navigationController\cf4 ?.\cf11 pushViewController\cf4 (vc, \cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+            \}\
+        \}\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 collectionView\cf4 (\cf9 _\cf4  collectionView: \cf7 UICollectionView\cf4 , \cf9 viewForSupplementaryElementOfKind\cf4  kind: \cf16 String\cf4 , \cf9 at\cf4  indexPath: \cf16 IndexPath\cf4 ) -> \cf7 UICollectionReusableView\cf4  \{\
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (kind == \cf12 "header"\cf4 )\{\
+            
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  view = collectionView.\cf11 dequeueReusableSupplementaryView\cf4 (\
+                \cf11 ofKind\cf4 : kind,\
+                \cf11 withReuseIdentifier\cf4 : \cf8 SectionHeaderCollectionReusableView\cf4 .\cf14 identifier\cf4 ,\
+                \cf11 for\cf4 : indexPath) 
+\f1\b \cf5 as
+\f0\b0 \cf4 ? \cf8 SectionHeaderCollectionReusableView\cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+                
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf7 UICollectionReusableView\cf4 ()\
+            \}\
+            \
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (indexPath.\cf10 section\cf4  == \cf13 0\cf4 )\{\
+                
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 customCollectionView\cf4 )\{\
+                    view.\cf14 sectionHeading\cf4  = \cf12 "Find Your Medical Solution!"\cf4 \
+                \}\
+                \
+                
+\f1\b \cf5 if
+\f0\b0 \cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 350\cf4 )\{\
+                    view.\cf14 fontSize\cf4  = \cf13 16\cf4 \
+                \}\
+                
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 400\cf4 )\{\
+                    view.\cf14 fontSize\cf4  = \cf13 20\cf4 \
+                \}\
+                
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                    view.\cf14 fontSize\cf4  = \cf13 25\cf4 \
+                \}\
+            \}\
+            
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+                view.\cf14 sectionHeading\cf4  = \cf12 "Specialists"\cf4 \
+                
+\f1\b \cf5 if
+\f0\b0 \cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 350\cf4 )\{\
+                    view.\cf14 fontSize\cf4  = \cf13 16\cf4 \
+                \}\
+                
+\f1\b \cf5 else
+\f0\b0 \cf4  
+\f1\b \cf5 if
+\f0\b0 \cf4 (
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 view\cf4 .\cf10 frame\cf4 .\cf10 width\cf4  < \cf13 400\cf4 )\{\
+                    view.\cf14 fontSize\cf4  = \cf13 20\cf4 \
+                \}\
+                
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+                    view.\cf14 fontSize\cf4  = \cf13 25\cf4 \
+                \}\
+            \}\
+            \
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  view\
+        \}\
+        
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf7 UICollectionReusableView\cf4 ()\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 collectionView\cf4 (\cf9 _\cf4  collectionView: \cf7 UICollectionView\cf4 , \cf9 willDisplay\cf4  cell: \cf7 UICollectionViewCell\cf4 , \cf9 forItemAt\cf4  indexPath: \cf16 IndexPath\cf4 ) \{\
+        
+\f1\b \cf5 if
+\f0\b0 \cf4 (collectionView == \cf14 medicalArticleCollectionView\cf4 )\{\
+            
+\f1\b \cf5 if
+\f0\b0 \cf4 (indexPath.\cf10 row\cf4  == \cf14 homeVCHelper\cf4 .\cf14 medArticleData\cf4 .\cf10 count\cf4  - \cf13 1\cf4 )\{\
+                \cf14 homeVCHelper\cf4 .\cf15 fetchData\cf4 (\cf15 forUrl\cf4 : \cf14 homeVCHelper\cf4 .\cf14 apiUrl\cf4 )\
+            \}\
+        \}\
+    \}\
+\}\
+\
+
+\f1\b \cf5 extension
+\f0\b0 \cf4  \cf6 HomeVC\cf4 : \cf7 UIImagePickerControllerDelegate\cf4 , \cf7 UINavigationControllerDelegate\cf4  \{\
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 imagePickerController\cf4 (\cf9 _\cf4  picker: \cf7 UIImagePickerController\cf4 , \cf9 didFinishPickingMediaWithInfo\cf4  info: [\cf7 UIImagePickerController\cf4 .\cf16 InfoKey\cf4  : 
+\f1\b \cf5 Any
+\f0\b0 \cf4 ]) \{\
+        
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  image = info[\cf7 UIImagePickerController\cf4 .\cf16 InfoKey\cf4 (rawValue: \cf12 "UIImagePickerControllerEditedImage"\cf4 )] 
+\f1\b \cf5 as
+\f0\b0 \cf4 ? \cf7 UIImage\cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4 \{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4 \
+        \}\
+        \
+        \cf7 UserDefaults\cf4 .\cf10 standard\cf4 .\cf15 setImage\cf4 (image, \cf15 forKey\cf4 : \cf12 "User Selected Image"\cf4 )\
+        \
+        \cf14 profileView\cf4 .\cf10 image\cf4  = image\
+        \
+\cf2 //        Dismissing PickerView manually\cf4 \
+        picker.\cf11 dismiss\cf4 (\cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 , \cf11 completion\cf4 : 
+\f1\b \cf5 nil
+\f0\b0 \cf4 )\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 imagePickerControllerDidCancel\cf4 (\cf9 _\cf4  picker: \cf7 UIImagePickerController\cf4 ) \{\
+        picker.\cf11 dismiss\cf4 (\cf11 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+    \}\
+\}\
+\
+
+\f1\b \cf5 extension
+\f0\b0 \cf4  \cf6 HomeVC\cf4  \{\
+    
+\f1\b \cf5 override
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 viewWillAppear\cf4 (\cf9 _\cf4  animated: \cf16 Bool\cf4 ) \{\
+        
+\f1\b \cf5 super
+\f0\b0 \cf4 .\cf11 viewWillAppear\cf4 (animated)\
+        \
+        \cf10 navigationController\cf4 ?.\cf10 isNavigationBarHidden\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+\cf2 //        self.hidesBottomBarWhenPushed = false\cf4 \
+        
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 tabBarController\cf4 ?.\cf10 tabBar\cf4 .\cf10 isHidden\cf4  = 
+\f1\b \cf5 false
+\f0\b0 \cf4 \
+        \
+\cf2 //        Refreshing reminder Table View\cf4 \
+        \cf15 reloadReminderTableView\cf4 ()\
+    \}\
+    \
+    
+\f1\b \cf5 override
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf9 viewWillDisappear\cf4 (\cf9 _\cf4  animated: \cf16 Bool\cf4 ) \{\
+        
+\f1\b \cf5 super
+\f0\b0 \cf4 .\cf11 viewWillDisappear\cf4 (animated)\
+        \
+\cf2 //        self.tabBarController?.tabBar.isHidden = true\cf4 \
+    \}\
+\}\
+}
